@@ -56,6 +56,10 @@ pytest
 - **Quarantine, don't drop.** Rejected rows keep a `reject_reason`, which makes data quality measurable and lets data owners fix the source.
 - **Partitioning** the fact table by warehouse, the most common filter in downstream reporting.
 
+## Walkthrough
+
+- [ ] 3-minute Loom walkthrough ([script ready](docs/walkthrough.md))
+
 ## Stack
 
 PySpark (Spark SQL functions), Parquet / Delta-ready, pytest, GitHub Actions.
