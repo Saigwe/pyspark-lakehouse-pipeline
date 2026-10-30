@@ -1,5 +1,26 @@
 # PySpark Lakehouse Pipeline
 
+[![ci](https://github.com/Saigwe/pyspark-lakehouse-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/Saigwe/pyspark-lakehouse-pipeline/actions/workflows/ci.yml)
+![PySpark](https://img.shields.io/badge/pyspark-3.5%2B-orange) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+
+```mermaid
+flowchart LR
+    subgraph Bronze
+      O[orders.json] & S[shipments.csv] & P[products.csv]
+    end
+    subgraph Silver
+      OV[orders] & OQ[orders_quarantine] & SV[shipments]
+    end
+    subgraph Gold
+      D[dim_product] & F[fct_shipments] & K[carrier_kpis_monthly]
+    end
+    O --> OV & OQ
+    S --> SV
+    P --> D
+    OV & SV & D --> F --> K
+    F --> Q{quality checks}
+```
+
 A medallion-architecture (bronze → silver → gold) pipeline in **PySpark** that turns messy order and shipment feeds into a dimensional model and monthly delivery KPIs by warehouse and carrier.
 
 The code runs locally and on **Databricks**: swap `.parquet(...)` for `.format("delta").save(...)`, or `saveAsTable(...)` for Unity Catalog tables.
